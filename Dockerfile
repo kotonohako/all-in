@@ -6,7 +6,7 @@ RUN apk update && apk add git
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY src/* ./
+COPY *.go ./
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o a.out server.go
