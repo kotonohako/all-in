@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-    web:
+    web-backend:
         build:
-            context: .
+            context: backend 
             dockerfile: Dockerfile
         command: go run server.go
         ports:
@@ -20,6 +20,6 @@ services:
             MYSQL_USER: koto
             MYSQL_PASSWORD: password
         volumes:
-            - ./mysql-volume:/var/lib/mysql
+            - ./backend/mysql-volume:/var/lib/mysql
         ports:
             - 3306:3306

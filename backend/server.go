@@ -14,8 +14,7 @@ func main() {
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPost, http.MethodDelete},
 	}))
 	e.GET("/hello", func(c echo.Context) error {
-		c.Response().Header().Set(echo.HeaderAccessControlAllowOrigin, "*")
-		return c.JSON(http.StatusOK, "{ 'status': 'Hello, World!' }")
+		return c.JSON(http.StatusOK, "{ 'status': 'Hello, Kotonohako World!' }")
 	})
 	e.Logger.Fatal(e.Start(":8080"))
 }
