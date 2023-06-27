@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: kotonohako web api
+paths:
+  /v1/health:
+    get:
+      operationId: Health
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    HelloResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          format: ok
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          format: please input your error message.
+        
