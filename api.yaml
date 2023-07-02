@@ -6,6 +6,8 @@ paths:
   /v1/health:
     get:
       operationId: Health
+      tags: 
+        - health
       responses:
         200:
           description: OK
@@ -15,6 +17,9 @@ paths:
                 $ref: '#/components/schemas/HelloResponse'
         400:
           $ref: '#/components/responses/BadRequest'
+tags:
+    - name: health
+      description: ヘルスチェックに使う API 群
 components:
   responses:
     NotFound:
