@@ -17,6 +17,20 @@ paths:
                 $ref: '#/components/schemas/HelloResponse'
         400:
           $ref: '#/components/responses/BadRequest'
+  /v1/kotonohas:
+    get:
+      operationId: 言葉一覧 API
+      tags:
+        - kotonoha
+      responses:
+        200:
+          description: 言葉一覧を返す
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KotonohaResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
 tags:
     - name: health
       description: ヘルスチェックに使う API 群
@@ -41,6 +55,30 @@ components:
         status:
           type: string
           format: ok
+    KotonohaResponse:
+      description: 言葉情報
+      type: object
+      required:
+        - kotonoha_id
+        - sentence
+        - author
+      properties:
+        kotonoha_id:
+          type: integer
+          description: 言葉ID
+        sentence:
+          type: string
+          description: 文章本体
+        author:
+          type: string
+          description: 引用元コンテンツの作成者
+        quote_source_name:
+          type: string
+          description: 引用元の名前 (本のタイトル、映画、公演名 etc...)
+        quote_media_type:
+          type: string
+          description: 引用元のメディアタイプ
+        
     ErrorResponse:
       type: object
       properties:
