@@ -4,7 +4,7 @@ import { getJSON } from '../services/api'
 import useSWR from "swr"
 
 export default function About() {
-    const { data, error } = useSWR("http://localhost:8080/hello", getJSON)
+    const { data, error } = useSWR("http://localhost:8080/v1/kotonohas", getJSON)
     return (
         <main className={styles.main}>
             <div>{JSON.stringify(data)}</div>

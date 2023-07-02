@@ -13,5 +13,23 @@ type HelloResponse struct {
 	Status *string `json:"status,omitempty"`
 }
 
+// KotonohaResponse 言葉情報
+type KotonohaResponse struct {
+	// Author 引用元コンテンツの作成者
+	Author string `json:"author"`
+
+	// KotonohaId 言葉ID
+	KotonohaId int `json:"kotonoha_id"`
+
+	// QuoteMediaType 引用元のメディアタイプ
+	QuoteMediaType *string `json:"quote_media_type,omitempty"`
+
+	// QuoteSourceName 引用元の名前 (本のタイトル、映画、公演名 etc...)
+	QuoteSourceName *string `json:"quote_source_name,omitempty"`
+
+	// Sentence 文章本体
+	Sentence string `json:"sentence"`
+}
+
 // BadRequest defines model for BadRequest.
 type BadRequest = ErrorResponse
