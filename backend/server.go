@@ -17,7 +17,7 @@ func (r Registry) Health(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, helloResponse)
 }
 
-func (r Registry) GetKotonohas(ctx echo.Context) error {
+func (r Registry) API(ctx echo.Context) error {
 	quoteMediaType := "本"
 	quoteSourceName := "ノルウェイの森"
 	kotonohasResponse := gt.KotonohaResponse{
