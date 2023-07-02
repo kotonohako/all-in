@@ -7,7 +7,7 @@ export default function About() {
     const { data, error } = useSWR("http://localhost:8080/hello", getJSON)
     return (
         <main className={styles.main}>
-            <div>{data}</div>
+            <div>{JSON.stringify(data)}</div>
         </main>
     )
 }
