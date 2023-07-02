@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM node:20.3.1-alpine3.17 AS base
-=======
 FROM node:20.2.0-alpine3.18 AS base
->>>>>>> main
 
 # Install dependencies only when needed
 FROM base AS deps
