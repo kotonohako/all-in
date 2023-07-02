@@ -2,7 +2,7 @@
 import styles from './page.module.css'
 import Masonry from 'react-responsive-masonry'
 
-export default function About() {
+export default function Gallery() {
     const nums = [...Array(10)].map((_, i) => (i));
     const childElements = nums.map(
         function (element) {
