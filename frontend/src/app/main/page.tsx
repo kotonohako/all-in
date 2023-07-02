@@ -8,7 +8,7 @@ export default function Main() {
         <main className={styles.main}>
             <div>gallery</div>
             <Link href="/gallery">Go to gallery</Link>
-            <Gallery sentence='fuga'/>
+            <Gallery sentence="fuga"/>
         </main>
     )
 }

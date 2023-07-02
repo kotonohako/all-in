@@ -2,13 +2,17 @@
 import styles from './page.module.css'
 import Masonry from 'react-responsive-masonry'
 
-export default function Gallery({sentence = "hoge"}) {
+type Props = {
+    sentence : string
+}
+
+export default function Gallery(props:Props) {
     const nums = [...Array(10)].map((_, i) => (i));
     const childElements = nums.map(
         function (element) {
             const sentenceDOM = (
                 <p key={`sentence-${element}`}>
-                    {`${element + 1} ${sentence}\n`.repeat(element + 1)}
+                    {`${element + 1} ${props.sentence}\n`.repeat(element + 1)}
                 </p>
             )
             return (
