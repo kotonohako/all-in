@@ -36,6 +36,6 @@ func main() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPost, http.MethodDelete},
 	}))
-	ga.RegisterHandlers(e, r)
+	generated.RegisterHandlers(e, r)
 	e.Logger.Fatal(e.Start(":8080"))
 }
