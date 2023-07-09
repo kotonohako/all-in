@@ -1,14 +1,14 @@
 "use client";
 import styles from './page.module.css'
 import Link from 'next/link'
-import Gallery from '../gallery/page';
+import GalleryComponent from '../gallery/GalleryComponent';
 
 export default function Main() {
     return (
         <main className={styles.main}>
             <div>gallery</div>
             <Link href="/gallery">Go to gallery</Link>
-            <Gallery sentence="fuga"/>
+            <GalleryComponent sentence="fuga"/>
         </main>
     )
 }
