@@ -5,7 +5,7 @@ import "time"
 type QuoteDAO struct {
 	ID              int       `db:"id"`
 	Sentence        string    `db:"sentence"`
-	Author          string    `db:"author"`
+	SpeakerName     string    `db:"speaker_name"`
 	QuoteSourceName *string   `db:"quote_source_name"`
 	QuoteMediaType  *string   `db:"quote_media_type"`
 	UpdatedAt       time.Time `db:"updated_at"`

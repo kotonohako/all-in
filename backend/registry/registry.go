@@ -26,7 +26,7 @@ func (r ApiRegistry) API(ctx echo.Context) error {
 	quotesResponse := []generated.KotonohaResponse{}
 	for _, quote := range quotes {
 		quoteResponse := generated.KotonohaResponse{
-			Author:          quote.Author,
+			Author:          quote.SpeakerName,
 			KotonohaId:      quote.ID,
 			QuoteMediaType:  quote.QuoteSourceName,
 			QuoteSourceName: quote.QuoteSourceName,
