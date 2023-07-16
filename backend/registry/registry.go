@@ -11,7 +11,7 @@ import (
 
 type ApiRegistry struct{}
 
-func (r ApiRegistry) Health(ctx echo.Context) error {
+func (r ApiRegistry) HealthCheck(ctx echo.Context) error {
 	status := "200 ok"
 	helloResponse := generated.HelloResponse{Status: &status}
 	return ctx.JSON(http.StatusOK, helloResponse)
@@ -23,11 +23,11 @@ func (r ApiRegistry) API(ctx echo.Context) error {
 		panic(fmt.Sprintf("err occurred: %v", err))
 	}
 
-	quotesResponse := []generated.KotonohaResponse{}
+	quotesResponse := []generated.QuoteResponse{}
 	for _, quote := range quotes {
-		quoteResponse := generated.KotonohaResponse{
-			Author:          quote.SpeakerName,
-			KotonohaId:      quote.ID,
+		quoteResponse := generated.QuoteResponse{
+			Id:              quote.ID,
+			SpeakerName:     quote.SpeakerName,
 			QuoteMediaType:  quote.QuoteSourceName,
 			QuoteSourceName: quote.QuoteSourceName,
 			Sentence:        quote.Sentence,
