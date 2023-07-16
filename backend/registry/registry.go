@@ -18,7 +18,7 @@ func (r ApiRegistry) Health(ctx echo.Context) error {
 }
 
 func (r ApiRegistry) API(ctx echo.Context) error {
-	kotonohas, err := repository.GetKotonohas()
+	kotonohas, err := repository.GetQuotes()
 	if err != nil {
 		panic(fmt.Sprintf("err occurred: %v", err))
 	}

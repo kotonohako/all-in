@@ -6,7 +6,7 @@ import (
 	"github.com/kotonohako/all-in/backend/db/dao"
 )
 
-func CreateKotonoha(
+func CreateQuote(
 	sentence string,
 	author string,
 	quote_source_name string,
@@ -34,7 +34,7 @@ func CreateKotonoha(
 	return nil
 }
 
-func GetKotonohas() ([]dao.KotonohaDAO, error) {
+func GetQuotes() ([]dao.KotonohaDAO, error) {
 	db, err := DbConnection()
 	if err != nil {
 		return nil, err
