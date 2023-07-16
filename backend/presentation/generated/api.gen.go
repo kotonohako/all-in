@@ -11,9 +11,9 @@ import (
 type ServerInterface interface {
 
 	// (GET /v1/health)
-	Health(ctx echo.Context) error
+	HealthCheck(ctx echo.Context) error
 
-	// (GET /v1/kotonohas)
+	// (GET /v1/quotes)
 	API(ctx echo.Context) error
 }
 
@@ -22,12 +22,12 @@ type ServerInterfaceWrapper struct {
 	Handler ServerInterface
 }
 
-// Health converts echo context to params.
-func (w *ServerInterfaceWrapper) Health(ctx echo.Context) error {
+// HealthCheck converts echo context to params.
+func (w *ServerInterfaceWrapper) HealthCheck(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.Health(ctx)
+	err = w.Handler.HealthCheck(ctx)
 	return err
 }
 
@@ -68,7 +68,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
-	router.GET(baseURL+"/v1/health", wrapper.Health)
-	router.GET(baseURL+"/v1/kotonohas", wrapper.API)
+	router.GET(baseURL+"/v1/health", wrapper.HealthCheck)
+	router.GET(baseURL+"/v1/quotes", wrapper.API)
 
 }
