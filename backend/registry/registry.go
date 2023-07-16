@@ -1,9 +1,11 @@
 package registry
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/kotonohako/all-in/backend/presentation/generated"
+	"github.com/kotonohako/all-in/backend/repository"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,14 +18,21 @@ func (r ApiRegistry) Health(ctx echo.Context) error {
 }
 
 func (r ApiRegistry) API(ctx echo.Context) error {
-	quoteMediaType := "本"
-	quoteSourceName := "ノルウェイの森"
-	kotonohasResponse := generated.KotonohaResponse{
-		Author:          "村上春樹",
-		KotonohaId:      12345,
-		QuoteMediaType:  &quoteMediaType,
-		QuoteSourceName: &quoteSourceName,
-		Sentence:        "希望があるところには必ず試練があるものだから",
+	kotonohas, err := repository.GetKotonohas()
+	if err != nil {
+		panic(fmt.Sprintf("err occurred: %v", err))
+	}
+
+	kotonohasResponse := []generated.KotonohaResponse{}
+	for _, kotonoha := range kotonohas {
+		kotonohaResponse := generated.KotonohaResponse{
+			Author:          kotonoha.Author,
+			KotonohaId:      kotonoha.ID,
+			QuoteMediaType:  kotonoha.QuoteSourceName,
+			QuoteSourceName: kotonoha.QuoteSourceName,
+			Sentence:        kotonoha.Sentence,
+		}
+		kotonohasResponse = append(kotonohasResponse, kotonohaResponse)
 	}
 	return ctx.JSON(http.StatusOK, kotonohasResponse)
 }

@@ -1,7 +1,7 @@
 -- +goose Up
 -- +goose StatementBegin
 CREATE TABLE kotonoha(
-    kotonoha_id bigint,
+    kotonoha_id bigint NOT NULL AUTO_INCREMENT,
     sentence text NOT NULL,
     author text NOT NULL,
     quote_source_name text,
