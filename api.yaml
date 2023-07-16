@@ -19,12 +19,13 @@ paths:
           $ref: '#/components/responses/BadRequest'
   /v1/quotes:
     get:
-      operationId: セリフ一覧 API
+      summary: セリフ一覧 API
+      operationId: QuoteList
       tags:
         - quotes 
       responses:
         200:
-          description: 言葉一覧を返す
+          description: セリフ一覧を返す
           content:
             application/json:
               schema:
@@ -33,6 +34,29 @@ paths:
                   $ref: '#/components/schemas/QuoteResponse'
         400:
           $ref: '#/components/responses/BadRequest'
+  /v1/quotes/{quoteId}:
+    get:
+      summary: セリフ詳細 API
+      operationId: QuoteDetail
+      tags:
+        - quotes
+      parameters:
+        - in: path
+          name: quoteId
+          schema:
+            type: integer
+          required: true
+          description: セリフに紐づくID
+      responses:
+        200:
+          description: セリフ詳細を返す
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
 tags:
     - name: health
       description: ヘルスチェックに使う API 群
