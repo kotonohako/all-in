@@ -15,6 +15,12 @@ services:
             context: backend 
             dockerfile: Dockerfile
         command: go run server.go
+        environment:
+            DB_USER: koto
+            DB_PASSWORD: password
+            DB_PATH: db
+            DB_PORT: 3306
+            DB_DATABASE: koto
         ports:
             - 8080:8080
         depends_on:
