@@ -28,7 +28,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KotonohaResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/KotonohaResponse'
         400:
           $ref: '#/components/responses/BadRequest'
 tags:
@@ -85,4 +87,3 @@ components:
         message:
           type: string
           format: please input your error message.
-        
