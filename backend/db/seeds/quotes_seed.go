@@ -35,7 +35,7 @@ func main() {
 		},
 	}
 
-	query := `INSERT INTO kotonoha(sentence, author, quote_source_name, quote_media_type) VALUES (:sentence, :author, :quote_source_name, :quote_media_type)`
+	query := `INSERT INTO quote(sentence, author, quote_source_name, quote_media_type) VALUES (:sentence, :author, :quote_source_name, :quote_media_type)`
 	db, err := repository.DbConnection()
 	if err != nil {
 		panic(fmt.Sprintf("db connection can't get: %s", err))

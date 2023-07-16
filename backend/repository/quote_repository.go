@@ -18,7 +18,7 @@ func CreateQuote(
 	}
 
 	query := `
-		INSERT INTO kotonoha (
+		INSERT INTO quote (
 			sentence, 
 			author, 
 			quote_source_name, 
@@ -34,24 +34,24 @@ func CreateQuote(
 	return nil
 }
 
-func GetQuotes() ([]dao.KotonohaDAO, error) {
+func GetQuotes() ([]dao.QuoteDAO, error) {
 	db, err := DbConnection()
 	if err != nil {
 		return nil, err
 	}
 
-	query := `SELECT * FROM kotonoha`
+	query := `SELECT * FROM quote`
 	rows, err := db.Queryx(query)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	arr := []dao.KotonohaDAO{}
+	arr := []dao.QuoteDAO{}
 	for rows.Next() {
-		var dao dao.KotonohaDAO
+		var dao dao.QuoteDAO
 		err := rows.StructScan(&dao)
-		fmt.Printf("kotonoha_id: %s", dao.Sentence)
+		fmt.Printf("sentence: %s", dao.Sentence)
 		if err != nil {
 			panic(fmt.Sprintf("query scan error, cause by %s", err))
 			return nil, err

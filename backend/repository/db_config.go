@@ -16,7 +16,6 @@ func DbConnection() (*sqlx.DB, error) {
 	dataBaseName := os.Getenv("DB_DATABASE")
 
 	dbPath := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", username, password, path, port, dataBaseName)
-	fmt.Printf("dbPath: %s", dbPath)
 	db, err := sqlx.Open("mysql", dbPath)
 	if err != nil {
 		return nil, err

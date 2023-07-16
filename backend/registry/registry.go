@@ -18,21 +18,21 @@ func (r ApiRegistry) Health(ctx echo.Context) error {
 }
 
 func (r ApiRegistry) API(ctx echo.Context) error {
-	kotonohas, err := repository.GetQuotes()
+	quotes, err := repository.GetQuotes()
 	if err != nil {
 		panic(fmt.Sprintf("err occurred: %v", err))
 	}
 
-	kotonohasResponse := []generated.KotonohaResponse{}
-	for _, kotonoha := range kotonohas {
-		kotonohaResponse := generated.KotonohaResponse{
-			Author:          kotonoha.Author,
-			KotonohaId:      kotonoha.ID,
-			QuoteMediaType:  kotonoha.QuoteSourceName,
-			QuoteSourceName: kotonoha.QuoteSourceName,
-			Sentence:        kotonoha.Sentence,
+	quotesResponse := []generated.KotonohaResponse{}
+	for _, quote := range quotes {
+		quoteResponse := generated.KotonohaResponse{
+			Author:          quote.Author,
+			KotonohaId:      quote.ID,
+			QuoteMediaType:  quote.QuoteSourceName,
+			QuoteSourceName: quote.QuoteSourceName,
+			Sentence:        quote.Sentence,
 		}
-		kotonohasResponse = append(kotonohasResponse, kotonohaResponse)
+		quotesResponse = append(quotesResponse, quoteResponse)
 	}
-	return ctx.JSON(http.StatusOK, kotonohasResponse)
+	return ctx.JSON(http.StatusOK, quotesResponse)
 }

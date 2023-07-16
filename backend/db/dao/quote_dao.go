@@ -2,8 +2,8 @@ package dao
 
 import "time"
 
-type KotonohaDAO struct {
-	ID              int       `db:"kotonoha_id"`
+type QuoteDAO struct {
+	ID              int       `db:"id"`
 	Sentence        string    `db:"sentence"`
 	Author          string    `db:"author"`
 	QuoteSourceName *string   `db:"quote_source_name"`
