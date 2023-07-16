@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
   version: 0.0.1
-  title: kotonohako web api
+  title: kotobako Web API
 paths:
   /v1/health:
     get:
-      operationId: Health
+      operationId: HealthCheck
       tags: 
         - health
       responses:
@@ -17,11 +17,11 @@ paths:
                 $ref: '#/components/schemas/HelloResponse'
         400:
           $ref: '#/components/responses/BadRequest'
-  /v1/kotonohas:
+  /v1/quotes:
     get:
-      operationId: 言葉一覧 API
+      operationId: セリフ一覧 API
       tags:
-        - kotonoha
+        - quotes 
       responses:
         200:
           description: 言葉一覧を返す
@@ -30,12 +30,14 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KotonohaResponse'
+                  $ref: '#/components/schemas/QuoteResponse'
         400:
           $ref: '#/components/responses/BadRequest'
 tags:
     - name: health
       description: ヘルスチェックに使う API 群
+    - name: quotes
+      description: セリフ一覧を返す API群
 components:
   responses:
     NotFound:
@@ -57,29 +59,52 @@ components:
         status:
           type: string
           format: ok
-    KotonohaResponse:
-      description: 言葉情報
+    QuoteThumbnailResponse:
+      description: セリフ情報一覧取得時に使うレスポンス
       type: object
       required:
-        - kotonoha_id
+        - id
         - sentence
-        - author
+        - quote_source_name 
       properties:
-        kotonoha_id:
+        id:
           type: integer
-          description: 言葉ID
+          description: セリフに紐づくID
         sentence:
           type: string
           description: 文章本体
-        author:
+        quote_source_name:
           type: string
-          description: 引用元コンテンツの作成者
+          description: 引用元の名前 (本のタイトル、映画、公演名 etc...)
+    QuoteResponse:
+      description: セリフ情報詳細
+      type: object
+      required:
+        - id
+        - sentence
+        - quote_source_name 
+        - quote_media_type
+        - updatedAt
+      properties:
+        id:
+          type: integer
+          description: セリフに紐づくID
+        sentence:
+          type: string
+          description: 文章本体
+        speaker_name:
+          type: string
+          description: 引用元コンテンツの発言者、もしくは作成者(コンテンツによってはNULL が入る場合もあり)
         quote_source_name:
           type: string
           description: 引用元の名前 (本のタイトル、映画、公演名 etc...)
         quote_media_type:
           type: string
-          description: 引用元のメディアタイプ
+          description: 引用元のメディアタイプ(enum 型だが string管理)
+        updated_at:
+          type: string
+          format: date-time
+          description: 最終更新日時
         
     ErrorResponse:
       type: object
