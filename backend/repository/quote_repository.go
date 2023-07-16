@@ -53,7 +53,6 @@ func GetQuotes() ([]dao.QuoteDAO, error) {
 		err := rows.StructScan(&dao)
 		fmt.Printf("sentence: %s", dao.Sentence)
 		if err != nil {
-			panic(fmt.Sprintf("query scan error, cause by %s", err))
 			return nil, err
 		}
 		arr = append(arr, dao)
