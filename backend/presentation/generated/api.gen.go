@@ -4,6 +4,10 @@
 package generated
 
 import (
+	"fmt"
+	"net/http"
+
+	"github.com/deepmap/oapi-codegen/pkg/runtime"
 	"github.com/labstack/echo/v4"
 )
 
@@ -12,9 +16,12 @@ type ServerInterface interface {
 
 	// (GET /v1/health)
 	HealthCheck(ctx echo.Context) error
-
+	// セリフ一覧 API
 	// (GET /v1/quotes)
-	API(ctx echo.Context) error
+	QuoteList(ctx echo.Context) error
+	// セリフ詳細 API
+	// (GET /v1/quotes/{quoteId})
+	QuoteDetail(ctx echo.Context, quoteId int) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -31,12 +38,28 @@ func (w *ServerInterfaceWrapper) HealthCheck(ctx echo.Context) error {
 	return err
 }
 
-// API converts echo context to params.
-func (w *ServerInterfaceWrapper) API(ctx echo.Context) error {
+// QuoteList converts echo context to params.
+func (w *ServerInterfaceWrapper) QuoteList(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.API(ctx)
+	err = w.Handler.QuoteList(ctx)
+	return err
+}
+
+// QuoteDetail converts echo context to params.
+func (w *ServerInterfaceWrapper) QuoteDetail(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "quoteId" -------------
+	var quoteId int
+
+	err = runtime.BindStyledParameterWithLocation("simple", false, "quoteId", runtime.ParamLocationPath, ctx.Param("quoteId"), &quoteId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter quoteId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.QuoteDetail(ctx, quoteId)
 	return err
 }
 
@@ -69,6 +92,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	}
 
 	router.GET(baseURL+"/v1/health", wrapper.HealthCheck)
-	router.GET(baseURL+"/v1/quotes", wrapper.API)
+	router.GET(baseURL+"/v1/quotes", wrapper.QuoteList)
+	router.GET(baseURL+"/v1/quotes/:quoteId", wrapper.QuoteDetail)
 
 }

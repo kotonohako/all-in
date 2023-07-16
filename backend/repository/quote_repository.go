@@ -61,3 +61,16 @@ func GetQuotes() ([]dao.QuoteDAO, error) {
 	fmt.Printf("arr : %v", arr)
 	return arr, nil
 }
+
+func GetQuote(quoteID int) (dao.QuoteDAO, error) {
+	quote := dao.QuoteDAO{}
+	db, err := DbConnection()
+	if err != nil {
+		return quote, err
+	}
+
+	query := `SELECT * FROM quote WHERE id=?`
+	err = db.Get(&quote, query, quoteID)
+
+	return quote, err
+}

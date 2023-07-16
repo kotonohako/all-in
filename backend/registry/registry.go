@@ -17,7 +17,7 @@ func (r ApiRegistry) HealthCheck(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, helloResponse)
 }
 
-func (r ApiRegistry) API(ctx echo.Context) error {
+func (r ApiRegistry) QuoteList(ctx echo.Context) error {
 	quotes, err := repository.GetQuotes()
 	if err != nil {
 		panic(fmt.Sprintf("err occurred: %v", err))
@@ -35,4 +35,21 @@ func (r ApiRegistry) API(ctx echo.Context) error {
 		quotesResponse = append(quotesResponse, quoteResponse)
 	}
 	return ctx.JSON(http.StatusOK, quotesResponse)
+}
+
+func (r ApiRegistry) QuoteDetail(ctx echo.Context, quoteId int) error {
+	quote, err := repository.GetQuote(quoteId)
+	if err != nil {
+		panic(fmt.Sprintf("quote detail get error: %v", err))
+	}
+
+	quoteResponse := generated.QuoteResponse{
+		Id:              quote.ID,
+		SpeakerName:     quote.SpeakerName,
+		QuoteMediaType:  quote.QuoteSourceName,
+		QuoteSourceName: quote.QuoteSourceName,
+		Sentence:        quote.Sentence,
+	}
+
+	return ctx.JSON(http.StatusOK, quoteResponse)
 }
