@@ -2,37 +2,32 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"path/filepath"
 
+	"github.com/gocarina/gocsv"
 	"github.com/kotonohako/all-in/backend/repository"
 )
 
 type dao struct {
-	Sentence        string
-	SpeakerName     string `db:"speaker_name"`
-	QuoteSourceName string `db:"quote_source_name"`
-	QuoteMediaType  string `db:"quote_media_type"`
+	Sentence        string `csv:"sentence"`
+	SpeakerName     string `db:"speaker_name" csv:"speaker_name"`
+	QuoteSourceName string `db:"quote_source_name" csv:"quote_source_name"`
+	QuoteMediaType  string `db:"quote_media_type" csv:"quote_media_type"`
 }
 
 func main() {
-	arr := []dao{
-		{
-			Sentence:        "わかんないものは わかんないまま取っておけばいい",
-			SpeakerName:     "鈴木敏夫",
-			QuoteSourceName: "鈴木敏夫自伝",
-			QuoteMediaType:  "小説",
-		},
-		{
-			Sentence:        "すべての女性には、嘘をつくための特別な独立器官のようなものが生まれつき具わっている",
-			SpeakerName:     "村上春樹",
-			QuoteSourceName: "独立器官",
-			QuoteMediaType:  "小説",
-		},
-		{
-			Sentence:        "職業とは本来、愛のある行為であるべきなんです。便宜的な結婚みたいなものじゃなく",
-			SpeakerName:     "村上春樹",
-			QuoteSourceName: "ノルウェイの森",
-			QuoteMediaType:  "小説",
-		},
+	f, err := os.OpenFile(filepath.Join("db", "seeds", "csv", "quote_dummy.csv"), os.O_RDONLY, os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	arr := []dao{}
+
+	if err := gocsv.UnmarshalFile(f, &arr); err != nil {
+		log.Fatal(err)
 	}
 
 	query := `INSERT INTO quote(sentence, speaker_name, quote_source_name, quote_media_type) VALUES (:sentence, :speaker_name, :quote_source_name, :quote_media_type)`
