@@ -7,9 +7,7 @@ export default function Main() {
     return (
         <main className="main">
             this is main
-            <main className="styles.main">
-                <Gallery/>
-            </main>
+            <Gallery/>
         </main>
     )
 }
