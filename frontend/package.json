@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-typescript-axios": "openapi-generator-cli generate -g typescript-axios -i ../api.yaml -o ./src/generated --api-package=api --model-package=model --additional-properties=withSeparateModelsAndApi=true"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.6.0",
     "@types/node": "20.3.0",
     "@types/react": "18.2.11",
     "@types/react-dom": "18.2.4",
