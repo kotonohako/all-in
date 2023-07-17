@@ -28,7 +28,7 @@ func (r ApiRegistry) QuoteList(ctx echo.Context) error {
 		quoteResponse := generated.QuoteResponse{
 			Id:              quote.ID,
 			SpeakerName:     quote.SpeakerName,
-			QuoteMediaType:  quote.QuoteSourceName,
+			QuoteMediaType:  string(quote.QuoteMediaType),
 			QuoteSourceName: quote.QuoteSourceName,
 			Sentence:        quote.Sentence,
 		}
@@ -46,7 +46,7 @@ func (r ApiRegistry) QuoteDetail(ctx echo.Context, quoteId int) error {
 	quoteResponse := generated.QuoteResponse{
 		Id:              quote.ID,
 		SpeakerName:     quote.SpeakerName,
-		QuoteMediaType:  quote.QuoteSourceName,
+		QuoteMediaType:  string(quote.QuoteMediaType),
 		QuoteSourceName: quote.QuoteSourceName,
 		Sentence:        quote.Sentence,
 	}

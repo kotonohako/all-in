@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kotonohako/all-in/backend/db/dao"
+	"github.com/kotonohako/all-in/backend/domain/model"
 )
 
 func CreateQuote(
@@ -34,7 +35,7 @@ func CreateQuote(
 	return nil
 }
 
-func GetQuotes() ([]dao.QuoteDAO, error) {
+func GetQuotes() ([]model.Quote, error) {
 	db, err := DbConnection()
 	if err != nil {
 		return nil, err
@@ -47,7 +48,7 @@ func GetQuotes() ([]dao.QuoteDAO, error) {
 	}
 	defer rows.Close()
 
-	arr := []dao.QuoteDAO{}
+	arr := []model.Quote{}
 	for rows.Next() {
 		var dao dao.QuoteDAO
 		err := rows.StructScan(&dao)
@@ -55,21 +56,36 @@ func GetQuotes() ([]dao.QuoteDAO, error) {
 		if err != nil {
 			return nil, err
 		}
-		arr = append(arr, dao)
+		quote := model.Quote{
+			ID:              dao.ID,
+			Sentence:        dao.Sentence,
+			SpeakerName:     dao.SpeakerName,
+			QuoteSourceName: dao.QuoteSourceName,
+			QuoteMediaType:  model.QuoteMediaType(dao.QuoteMediaType),
+			UpdatedAt:       dao.UpdatedAt,
+		}
+		arr = append(arr, quote)
 	}
 	fmt.Printf("arr : %v", arr)
 	return arr, nil
 }
 
-func GetQuote(quoteID int) (dao.QuoteDAO, error) {
+func GetQuote(quoteID int) (model.Quote, error) {
 	quote := dao.QuoteDAO{}
 	db, err := DbConnection()
 	if err != nil {
-		return quote, err
+		return model.Quote{}, err
 	}
 
 	query := `SELECT * FROM quote WHERE id=?`
 	err = db.Get(&quote, query, quoteID)
 
-	return quote, err
+	return model.Quote{
+		ID:              quote.ID,
+		Sentence:        quote.Sentence,
+		SpeakerName:     quote.SpeakerName,
+		QuoteSourceName: quote.QuoteSourceName,
+		QuoteMediaType:  model.QuoteMediaType(quote.QuoteMediaType),
+		UpdatedAt:       quote.UpdatedAt,
+	}, err
 }
