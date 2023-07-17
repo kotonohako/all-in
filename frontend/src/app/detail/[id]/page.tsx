@@ -1,5 +1,5 @@
 "use client";
-import Gallery from '../../components/Gallery';
+import Gallery, { Quote } from '../../components/Gallery';
 
 // type PageProps = {
 //     params: {
@@ -7,10 +7,14 @@ import Gallery from '../../components/Gallery';
 //     }
 // }
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
+    const data = await fetch(`http://localhost:8080/v1/quotes/${params.id}`)
+    const quote: Quote = await data.json()
     return (
         <h1>
-            this is detail{params.id}
+            {quote.sentence}
+            {quote.quote_source_name}
+            {quote.quote_media_type}
             <main className="main">
                 <Gallery/>
             </main>
