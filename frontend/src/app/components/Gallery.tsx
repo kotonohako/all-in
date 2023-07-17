@@ -1,8 +1,8 @@
 "use client";
-import styles from './page.module.css'
+import Link from 'next/link';
 import Masonry from 'react-responsive-masonry'
 
-export default function About() {
+const Gallery = () => {
     const nums = [...Array(10)].map((_, i) => (i));
     const childElements = nums.map(
         function (element) {
@@ -12,17 +12,21 @@ export default function About() {
                 </p>
             )
             return (
-                <div className={styles.card} key={element}>
-                    {sentenceDOM}
-                </div>
+                <Link href="/detail/hogehoge" key={element}>
+                    <div className="card">
+                        {sentenceDOM}
+                    </div>
+                </Link>
             )
         }
-    );
+    )
     return (
-        <main className={styles.main}>
+        <main className="main">
             <Masonry>
                 {childElements}
             </Masonry>
         </main>
     )
 }
+
+export default Gallery;
