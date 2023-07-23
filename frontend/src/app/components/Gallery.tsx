@@ -1,19 +1,19 @@
 import Link from 'next/link';
-import Masonry from 'react-responsive-masonry'
-import {Card, CardBody} from '@chakra-ui/react'
+import {Card, CardBody, Masonry} from '../common'
+import { Quote } from '../types';
 
-type Quote = {
-    id: number,
-    quote_media_type: string,
-    quote_source_name: string,
-    sentence: string,
-    speaker_name?: string;
-};
+async function getAllQuotes() {
+    const res = await fetch("http://localhost:8080/v1/quotes")
+    if (!res.ok) {
+        throw new Error("failed to fetch quotes");
+    }
+    const data = await res.json();
+    return data as Quote[];
+}
 
 const Gallery = async () => {
-    const data = await fetch("http://localhost:8080/v1/quotes")
-    const quoteInfo: Quote[] = await data.json()
-    const childElements = quoteInfo.map((quote) => (
+    const quotes = await getAllQuotes();
+    const childElements = quotes.map((quote) => (
         <Card key={quote.id}>
             <CardBody>
             <Link href={`/detail/${quote.id}`}>
