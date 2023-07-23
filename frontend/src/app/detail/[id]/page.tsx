@@ -1,6 +1,8 @@
 "use client";
 import { Quote } from '@/app/types';
 import Gallery from '../../components/Gallery';
+import QuoteDetail from './QuoteDetail';
+import {Heading, Spacer, VStack} from '../../common'
 
 async function getQuote(id:string) {
     const res = await fetch(`http://localhost:8080/v1/quotes/${id}`)
@@ -14,13 +16,12 @@ async function getQuote(id:string) {
 export default async function Page({ params }: { params: { id: string } }){
     const quote = await getQuote(params.id)
     return (
-        <h1>
-            {quote.sentence}
-            {quote.quote_source_name}
-            {quote.quote_media_type}
-            <main className="main">
-                <Gallery/>
-            </main>
-        </h1>
+        <div>
+            <QuoteDetail quote={quote} />
+            <Heading as="h2" mt={8} mb={4} fontSize={24}>
+                その他
+            </Heading>
+            <Gallery/>
+        </div>
     )
 }
