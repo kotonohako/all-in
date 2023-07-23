@@ -40,7 +40,7 @@ export default function CreateArticle() {
     }
     return (
         <div>
-            <Heading mb={4}>Create Article</Heading>
+            <Heading mb={4}>投稿する</Heading>
             <form onSubmit={handleSubmit}>
                 <FormControl>
                     <FormLabel>コトバ</FormLabel>
