@@ -1,11 +1,11 @@
-"use client"
-import Image from 'next/image'
-import {Text} from '@chakra-ui/react'
+import useSWR from "swr"
+import Gallery from './components/Gallery';
 
-export default function Home() {
-  return (
-    <main className='main'>
-      <Text>テスト</Text>
-    </main>
-  )
+export default function Main() {
+    return (
+        <main className="main">
+            this is main
+            <Gallery/>
+        </main>
+    )
 }

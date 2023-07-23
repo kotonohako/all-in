@@ -1,15 +1,18 @@
 "use client";
-import Gallery, { Quote } from '../../components/Gallery';
+import { Quote } from '@/app/types';
+import Gallery from '../../components/Gallery';
 
-// type PageProps = {
-//     params: {
-//         id: number;
-//     }
-// }
+async function getQuote(id:string) {
+    const res = await fetch(`http://localhost:8080/v1/quotes/${id}`)
+    if (!res.ok) {
+        throw new Error("failed to fetch quotes");
+    }
+    const data = await res.json();
+    return data as Quote;
+}
 
-const Page = async ({ params }: { params: { id: string } }) => {
-    const data = await fetch(`http://localhost:8080/v1/quotes/${params.id}`)
-    const quote: Quote = await data.json()
+export default async function Page({ params }: { params: { id: string } }){
+    const quote = await getQuote(params.id)
     return (
         <h1>
             {quote.sentence}
@@ -21,5 +24,3 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </h1>
     )
 }
-
-export default Page;
