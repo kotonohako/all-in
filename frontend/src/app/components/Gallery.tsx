@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Card, CardBody, Masonry} from '../common'
+import {Card, CardBody, Masonry, ResponsiveMasonry} from '../common'
 import { Quote } from '../types';
 
 async function getAllQuotes() {
@@ -24,9 +24,11 @@ const Gallery = async () => {
     ))
     return (
         <main className="main">
-            <Masonry gutter='20px'>
+            <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 700: 2, 900: 3, 1100: 4}}>
+                <Masonry gutter='20px'>
                 {childElements}
-            </Masonry>
+                </Masonry>
+            </ResponsiveMasonry>
         </main>
     )
 }
