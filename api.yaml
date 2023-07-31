@@ -34,6 +34,20 @@ paths:
                   $ref: '#/components/schemas/QuoteResponse'
         400:
           $ref: '#/components/responses/BadRequest'
+    post:
+      summary: セリフ登録 API
+      operationId: registerQuote
+      tags:
+        - quotes 
+      responses:
+        200:
+          description: セリフを登録する
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteThumbnailResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
   /v1/quotes/{quoteId}:
     get:
       summary: セリフ詳細 API
