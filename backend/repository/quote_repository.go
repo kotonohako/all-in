@@ -21,11 +21,11 @@ func CreateQuote(
 	query := `
 		INSERT INTO quote (
 			sentence, 
-			author, 
+			speaker_name, 
 			quote_source_name, 
 			quote_media_type
 		)
-			VALUES (:$1, :$2, :$3, :$4)`
+			VALUES (?, ?, ?, ?)`
 	_, err = db.Exec(query, sentence, author, quote_source_name, quote_media_type)
 
 	if err != nil {

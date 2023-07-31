@@ -37,6 +37,19 @@ func (r ApiRegistry) QuoteList(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, quotesResponse)
 }
 
+func (r ApiRegistry) RegisterQuote(ctx echo.Context) error {
+	q := new(generated.RegisterQuoteJSONRequestBody)
+	if err := ctx.Bind(q); err != nil {
+		return ctx.String(http.StatusBadRequest, "bad request")
+	}
+
+	if err := repository.CreateQuote(q.Sentence, q.SpeakerName, q.QuoteSourceName, q.QuoteMediaType); err != nil {
+		return ctx.String(http.StatusInternalServerError, fmt.Sprintf("register by repository had err: %v", err))
+	}
+
+	return ctx.NoContent(204)
+}
+
 func (r ApiRegistry) QuoteDetail(ctx echo.Context, quoteId int) error {
 	quote, err := repository.GetQuote(quoteId)
 	if err != nil {
