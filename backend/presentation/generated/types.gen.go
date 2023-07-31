@@ -38,17 +38,23 @@ type QuoteResponse struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// QuoteThumbnailResponse セリフ情報一覧取得時に使うレスポンス
-type QuoteThumbnailResponse struct {
-	// Id セリフに紐づくID
-	Id int `json:"id"`
+// RegisterQuoteRequest セリフ登録API のリクエスト
+type RegisterQuoteRequest struct {
+	// QuoteMediaType 引用元のメディアタイプ(enum 型だが string管理)
+	QuoteMediaType string `json:"quote_media_type"`
 
 	// QuoteSourceName 引用元の名前 (本のタイトル、映画、公演名 etc...)
 	QuoteSourceName string `json:"quote_source_name"`
 
 	// Sentence 文章本体
 	Sentence string `json:"sentence"`
+
+	// SpeakerName 引用元コンテンツの発言者、もしくは作成者(コンテンツによってはNULL が入る場合もあり)
+	SpeakerName string `json:"speaker_name"`
 }
 
 // BadRequest defines model for BadRequest.
 type BadRequest = ErrorResponse
+
+// RegisterQuoteJSONRequestBody defines body for RegisterQuote for application/json ContentType.
+type RegisterQuoteJSONRequestBody = RegisterQuoteRequest
