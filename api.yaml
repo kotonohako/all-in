@@ -39,8 +39,16 @@ paths:
       operationId: registerQuote
       tags:
         - quotes 
+      requestBody:
+        description: セリフ登録データ
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/RegisterQuoteRequest'
+
       responses:
-        200:
+        201:
           description: セリフを登録する
           content:
             application/json:
@@ -97,6 +105,30 @@ components:
         status:
           type: string
           format: ok
+
+    RegisterQuoteRequest:
+      description: セリフ登録API のリクエスト
+      type: object
+      required:
+        - sentence
+        - description
+        - speaker_name
+        - quote_source_name
+        - quote_media_type
+      properties:
+        sentence:
+          type: string
+          description: 文章本体
+        speaker_name:
+          type: string
+          description: 引用元コンテンツの発言者、もしくは作成者(コンテンツによってはNULL が入る場合もあり)
+        quote_source_name:
+          type: string
+          description: 引用元の名前 (本のタイトル、映画、公演名 etc...)
+        quote_media_type:
+          type: string
+          description: 引用元のメディアタイプ(enum 型だが string管理)
+
     QuoteThumbnailResponse:
       description: セリフ情報一覧取得時に使うレスポンス
       type: object
@@ -114,6 +146,7 @@ components:
         quote_source_name:
           type: string
           description: 引用元の名前 (本のタイトル、映画、公演名 etc...)
+
     QuoteResponse:
       description: セリフ情報詳細
       type: object

@@ -19,6 +19,9 @@ type ServerInterface interface {
 	// セリフ一覧 API
 	// (GET /v1/quotes)
 	QuoteList(ctx echo.Context) error
+	// セリフ登録 API
+	// (POST /v1/quotes)
+	RegisterQuote(ctx echo.Context) error
 	// セリフ詳細 API
 	// (GET /v1/quotes/{quoteId})
 	QuoteDetail(ctx echo.Context, quoteId int) error
@@ -44,6 +47,15 @@ func (w *ServerInterfaceWrapper) QuoteList(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.QuoteList(ctx)
+	return err
+}
+
+// RegisterQuote converts echo context to params.
+func (w *ServerInterfaceWrapper) RegisterQuote(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.RegisterQuote(ctx)
 	return err
 }
 
@@ -93,6 +105,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 
 	router.GET(baseURL+"/v1/health", wrapper.HealthCheck)
 	router.GET(baseURL+"/v1/quotes", wrapper.QuoteList)
+	router.POST(baseURL+"/v1/quotes", wrapper.RegisterQuote)
 	router.GET(baseURL+"/v1/quotes/:quoteId", wrapper.QuoteDetail)
 
 }

@@ -38,5 +38,17 @@ type QuoteResponse struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
+// QuoteThumbnailResponse セリフ情報一覧取得時に使うレスポンス
+type QuoteThumbnailResponse struct {
+	// Id セリフに紐づくID
+	Id int `json:"id"`
+
+	// QuoteSourceName 引用元の名前 (本のタイトル、映画、公演名 etc...)
+	QuoteSourceName string `json:"quote_source_name"`
+
+	// Sentence 文章本体
+	Sentence string `json:"sentence"`
+}
+
 // BadRequest defines model for BadRequest.
 type BadRequest = ErrorResponse
