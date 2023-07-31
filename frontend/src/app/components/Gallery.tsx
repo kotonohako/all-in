@@ -15,11 +15,11 @@ const Gallery = async () => {
     const quotes = await getAllQuotes();
     const childElements = quotes.map((quote) => (
         <Card key={quote.id}>
-            <CardBody>
             <Link href={`/detail/${quote.id}`}>
-                {quote.sentence}
+                <CardBody padding={Math.random()*(60-20)+20}>
+                    {quote.sentence}
+                </CardBody>
             </Link>
-            </CardBody>
         </Card>
     ))
     return (
