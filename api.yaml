@@ -46,14 +46,9 @@ paths:
           application/json:
             schema:
                 $ref: '#/components/schemas/RegisterQuoteRequest'
-
       responses:
-        201:
+        204:
           description: セリフを登録する
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QuoteThumbnailResponse'
         400:
           $ref: '#/components/responses/BadRequest'
   /v1/quotes/{quoteId}:
