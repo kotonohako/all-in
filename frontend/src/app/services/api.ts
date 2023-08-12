@@ -15,7 +15,7 @@ export const hello = async(): Promise<unknown> => {
 }
 
 export const getAllQuotes = async (): Promise<any> => {
-  const url = "https://localhost:8080/v1/quotes";
-  const response = await axios.get(url);
-  return response.data;
+  const client = getApiClient();
+  const response = client.listQuotes({});
+  return response;
 }

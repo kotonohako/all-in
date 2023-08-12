@@ -1,21 +1,16 @@
 import Link from 'next/link';
 import {Card, CardBody, Masonry, ResponsiveMasonry} from '../common'
 import { Quote } from '../types';
-
-async function getAllQuotes() {
-    const res = await fetch("http://localhost:8080/v1/quotes")
-    if (!res.ok) {
-        throw new Error("failed to fetch quotes");
-    }
-    const data = await res.json();
-    return data as Quote[];
-}
+import { getAllQuotes } from '../services/api';
+import { ListQuotesResponse } from '@/generated/buf/kotobako/v1/kotobako_pb';
 
 const Gallery = async () => {
-    const quotes = await getAllQuotes();
+    const quotesResponse: ListQuotesResponse = await getAllQuotes();
+    const quotes = quotesResponse.quotes;
+
     const childElements = quotes.map((quote) => (
-        <Card key={quote.id}>
-            <Link href={`/detail/${quote.id}`}>
+        <Card key={quote.quoteId}>
+            <Link href={`/detail/${quote.quoteId}`}>
                 <CardBody padding={Math.random()*(60-20)+20}>
                     {quote.sentence}
                 </CardBody>
