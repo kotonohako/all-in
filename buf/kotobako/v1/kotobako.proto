@@ -5,10 +5,25 @@ package kotobako.v1;
 
 service KotobakoService {
     rpc Health(HealthRequest) returns (HealthResponse) {}
+    rpc ListQuotes(ListQuotesRequest) returns (ListQuotesResponse) {}
 }
 
 message HealthRequest {}
 
 message HealthResponse {
     string status = 1;
+}
+
+message ListQuotesRequest {}
+
+message ListQuotesResponse {
+    repeated Quote quotes = 1;
+}
+
+message Quote {
+    string quoteId = 1;
+    string authorName = 2;
+    string quoteMediaType = 3;
+    string quoteSourceName = 4;
+    string sentence = 5;
 }
