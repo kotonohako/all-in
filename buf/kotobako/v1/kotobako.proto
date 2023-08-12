@@ -6,6 +6,7 @@ package kotobako.v1;
 service KotobakoService {
     rpc Health(HealthRequest) returns (HealthResponse) {}
     rpc ListQuotes(ListQuotesRequest) returns (ListQuotesResponse) {}
+    rpc GetQuote(GetQuoteRequest) returns (GetQuoteResponse) {}
 }
 
 message HealthRequest {}
@@ -18,6 +19,18 @@ message ListQuotesRequest {}
 
 message ListQuotesResponse {
     repeated Quote quotes = 1;
+}
+
+message GetQuoteRequest {
+    string quoteId = 1;
+}
+
+message GetQuoteResponse {
+    string quoteId = 1;
+    string authorName = 2;
+    string quoteMediaType = 3;
+    string quoteSourceName = 4;
+    string sentence = 5;
 }
 
 message Quote {
