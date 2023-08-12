@@ -36,11 +36,15 @@ const (
 const (
 	// KotobakoServiceHealthProcedure is the fully-qualified name of the KotobakoService's Health RPC.
 	KotobakoServiceHealthProcedure = "/kotobako.v1.KotobakoService/Health"
+	// KotobakoServiceListQuotesProcedure is the fully-qualified name of the KotobakoService's
+	// ListQuotes RPC.
+	KotobakoServiceListQuotesProcedure = "/kotobako.v1.KotobakoService/ListQuotes"
 )
 
 // KotobakoServiceClient is a client for the kotobako.v1.KotobakoService service.
 type KotobakoServiceClient interface {
 	Health(context.Context, *connect_go.Request[v1.HealthRequest]) (*connect_go.Response[v1.HealthResponse], error)
+	ListQuotes(context.Context, *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error)
 }
 
 // NewKotobakoServiceClient constructs a client for the kotobako.v1.KotobakoService service. By
@@ -58,12 +62,18 @@ func NewKotobakoServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+KotobakoServiceHealthProcedure,
 			opts...,
 		),
+		listQuotes: connect_go.NewClient[v1.ListQuotesRequest, v1.ListQuotesResponse](
+			httpClient,
+			baseURL+KotobakoServiceListQuotesProcedure,
+			opts...,
+		),
 	}
 }
 
 // kotobakoServiceClient implements KotobakoServiceClient.
 type kotobakoServiceClient struct {
-	health *connect_go.Client[v1.HealthRequest, v1.HealthResponse]
+	health     *connect_go.Client[v1.HealthRequest, v1.HealthResponse]
+	listQuotes *connect_go.Client[v1.ListQuotesRequest, v1.ListQuotesResponse]
 }
 
 // Health calls kotobako.v1.KotobakoService.Health.
@@ -71,9 +81,15 @@ func (c *kotobakoServiceClient) Health(ctx context.Context, req *connect_go.Requ
 	return c.health.CallUnary(ctx, req)
 }
 
+// ListQuotes calls kotobako.v1.KotobakoService.ListQuotes.
+func (c *kotobakoServiceClient) ListQuotes(ctx context.Context, req *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error) {
+	return c.listQuotes.CallUnary(ctx, req)
+}
+
 // KotobakoServiceHandler is an implementation of the kotobako.v1.KotobakoService service.
 type KotobakoServiceHandler interface {
 	Health(context.Context, *connect_go.Request[v1.HealthRequest]) (*connect_go.Response[v1.HealthResponse], error)
+	ListQuotes(context.Context, *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error)
 }
 
 // NewKotobakoServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -87,10 +103,17 @@ func NewKotobakoServiceHandler(svc KotobakoServiceHandler, opts ...connect_go.Ha
 		svc.Health,
 		opts...,
 	)
+	kotobakoServiceListQuotesHandler := connect_go.NewUnaryHandler(
+		KotobakoServiceListQuotesProcedure,
+		svc.ListQuotes,
+		opts...,
+	)
 	return "/kotobako.v1.KotobakoService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case KotobakoServiceHealthProcedure:
 			kotobakoServiceHealthHandler.ServeHTTP(w, r)
+		case KotobakoServiceListQuotesProcedure:
+			kotobakoServiceListQuotesHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -102,4 +125,8 @@ type UnimplementedKotobakoServiceHandler struct{}
 
 func (UnimplementedKotobakoServiceHandler) Health(context.Context, *connect_go.Request[v1.HealthRequest]) (*connect_go.Response[v1.HealthResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("kotobako.v1.KotobakoService.Health is not implemented"))
+}
+
+func (UnimplementedKotobakoServiceHandler) ListQuotes(context.Context, *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("kotobako.v1.KotobakoService.ListQuotes is not implemented"))
 }

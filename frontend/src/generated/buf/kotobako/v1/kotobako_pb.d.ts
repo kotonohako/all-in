@@ -51,3 +51,90 @@ export declare class HealthResponse extends Message<HealthResponse> {
   static equals(a: HealthResponse | PlainMessage<HealthResponse> | undefined, b: HealthResponse | PlainMessage<HealthResponse> | undefined): boolean;
 }
 
+/**
+ * @generated from message kotobako.v1.ListQuotesRequest
+ */
+export declare class ListQuotesRequest extends Message<ListQuotesRequest> {
+  constructor(data?: PartialMessage<ListQuotesRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.ListQuotesRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListQuotesRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListQuotesRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListQuotesRequest;
+
+  static equals(a: ListQuotesRequest | PlainMessage<ListQuotesRequest> | undefined, b: ListQuotesRequest | PlainMessage<ListQuotesRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message kotobako.v1.ListQuotesResponse
+ */
+export declare class ListQuotesResponse extends Message<ListQuotesResponse> {
+  /**
+   * @generated from field: repeated kotobako.v1.Quote quotes = 1;
+   */
+  quotes: Quote[];
+
+  constructor(data?: PartialMessage<ListQuotesResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.ListQuotesResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListQuotesResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListQuotesResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListQuotesResponse;
+
+  static equals(a: ListQuotesResponse | PlainMessage<ListQuotesResponse> | undefined, b: ListQuotesResponse | PlainMessage<ListQuotesResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message kotobako.v1.Quote
+ */
+export declare class Quote extends Message<Quote> {
+  /**
+   * @generated from field: string quoteId = 1;
+   */
+  quoteId: string;
+
+  /**
+   * @generated from field: string authorName = 2;
+   */
+  authorName: string;
+
+  /**
+   * @generated from field: string quoteMediaType = 3;
+   */
+  quoteMediaType: string;
+
+  /**
+   * @generated from field: string quoteSourceName = 4;
+   */
+  quoteSourceName: string;
+
+  /**
+   * @generated from field: string sentence = 5;
+   */
+  sentence: string;
+
+  constructor(data?: PartialMessage<Quote>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.Quote";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Quote;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Quote;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Quote;
+
+  static equals(a: Quote | PlainMessage<Quote> | undefined, b: Quote | PlainMessage<Quote> | undefined): boolean;
+}
+

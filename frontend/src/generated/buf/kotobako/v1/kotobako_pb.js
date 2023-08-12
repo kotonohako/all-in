@@ -25,3 +25,35 @@ export const HealthResponse = proto3.makeMessageType(
   ],
 );
 
+/**
+ * @generated from message kotobako.v1.ListQuotesRequest
+ */
+export const ListQuotesRequest = proto3.makeMessageType(
+  "kotobako.v1.ListQuotesRequest",
+  [],
+);
+
+/**
+ * @generated from message kotobako.v1.ListQuotesResponse
+ */
+export const ListQuotesResponse = proto3.makeMessageType(
+  "kotobako.v1.ListQuotesResponse",
+  () => [
+    { no: 1, name: "quotes", kind: "message", T: Quote, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message kotobako.v1.Quote
+ */
+export const Quote = proto3.makeMessageType(
+  "kotobako.v1.Quote",
+  () => [
+    { no: 1, name: "quoteId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "authorName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "quoteMediaType", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "quoteSourceName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "sentence", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
