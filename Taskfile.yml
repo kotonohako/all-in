@@ -16,6 +16,7 @@ tasks:
     cmds:
       - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
       - go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+      - go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
   init:buf:
     dir: buf
     cmds:
@@ -26,4 +27,8 @@ tasks:
     dir: buf
     cmds:
       - npx buf generate
+  gen:apidoc:
+    cmds:
+      - protoc --doc_out=./doc --doc_opt=html,index.html buf/kotobako/**/*.proto
+
   
