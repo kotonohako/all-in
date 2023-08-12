@@ -1,3 +1,4 @@
 backend/mysql-volume/*
+node_modules
 /**/.idea/
 /**/.vscode/
