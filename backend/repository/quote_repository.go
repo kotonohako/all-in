@@ -1,10 +1,11 @@
 package repository
 
 import (
+	"context"
 	"fmt"
 
-	"github.com/kotonohako/all-in/backend/db/dao"
 	"github.com/kotonohako/all-in/backend/domain/model"
+	"github.com/kotonohako/all-in/backend/generated/sqlc"
 )
 
 func CreateQuote(
@@ -13,7 +14,7 @@ func CreateQuote(
 	quote_source_name string,
 	quote_media_type string,
 ) error {
-	db, err := DbConnection()
+	db, err := DbConnectionWithSqlx()
 	if err != nil {
 		return err
 	}
@@ -36,33 +37,31 @@ func CreateQuote(
 }
 
 func GetQuotes() ([]model.Quote, error) {
+	ctx := context.Background()
+
 	db, err := DbConnection()
 	if err != nil {
 		return nil, err
 	}
+	queries := sqlc.New(db)
 
-	query := `SELECT * FROM quote`
-	rows, err := db.Queryx(query)
+	rows, err := queries.ListQuotes(ctx)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 
 	arr := []model.Quote{}
-	for rows.Next() {
-		var dao dao.QuoteDAO
-		err := rows.StructScan(&dao)
-		fmt.Printf("sentence: %s", dao.Sentence)
+	for _, row := range rows {
 		if err != nil {
 			return nil, err
 		}
 		quote := model.Quote{
-			ID:              dao.ID,
-			Sentence:        dao.Sentence,
-			SpeakerName:     dao.SpeakerName,
-			QuoteSourceName: dao.QuoteSourceName,
-			QuoteMediaType:  model.QuoteMediaType(dao.QuoteMediaType),
-			UpdatedAt:       dao.UpdatedAt,
+			ID:              int(row.ID),
+			Sentence:        row.Sentence,
+			SpeakerName:     &row.SpeakerName.String,
+			QuoteSourceName: row.QuoteSourceName,
+			QuoteMediaType:  model.QuoteMediaType(row.QuoteMediaType),
+			UpdatedAt:       row.UpdatedAt,
 		}
 		arr = append(arr, quote)
 	}
@@ -71,19 +70,22 @@ func GetQuotes() ([]model.Quote, error) {
 }
 
 func GetQuote(quoteID int) (model.Quote, error) {
-	quote := dao.QuoteDAO{}
+	ctx := context.Background()
 	db, err := DbConnection()
 	if err != nil {
 		return model.Quote{}, err
 	}
+	queries := sqlc.New(db)
 
-	query := `SELECT * FROM quote WHERE id=?`
-	err = db.Get(&quote, query, quoteID)
+	quote, err := queries.GetQuote(ctx, int64(quoteID))
+	if err != nil {
+		return model.Quote{}, err
+	}
 
 	return model.Quote{
-		ID:              quote.ID,
+		ID:              int(quote.ID),
 		Sentence:        quote.Sentence,
-		SpeakerName:     quote.SpeakerName,
+		SpeakerName:     &quote.SpeakerName.String,
 		QuoteSourceName: quote.QuoteSourceName,
 		QuoteMediaType:  model.QuoteMediaType(quote.QuoteMediaType),
 		UpdatedAt:       quote.UpdatedAt,

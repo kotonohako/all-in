@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 
@@ -8,7 +9,23 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func DbConnection() (*sqlx.DB, error) {
+func DbConnection() (*sql.DB, error) {
+	username := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	path := os.Getenv("DB_PATH")
+	port := os.Getenv("DB_PORT")
+	dataBaseName := os.Getenv("DB_DATABASE")
+
+	dbPath := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", username, password, path, port, dataBaseName)
+
+	db, err := sql.Open("mysql", dbPath)
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
+}
+
+func DbConnectionWithSqlx() (*sqlx.DB, error) {
 	username := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
 	path := os.Getenv("DB_PATH")
