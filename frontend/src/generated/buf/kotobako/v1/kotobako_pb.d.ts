@@ -163,6 +163,69 @@ export declare class GetQuoteResponse extends Message<GetQuoteResponse> {
 }
 
 /**
+ * @generated from message kotobako.v1.PostQuoteRequest
+ */
+export declare class PostQuoteRequest extends Message<PostQuoteRequest> {
+  /**
+   * @generated from field: string sentence = 1;
+   */
+  sentence: string;
+
+  /**
+   * @generated from field: string authorName = 2;
+   */
+  authorName: string;
+
+  /**
+   * @generated from field: string quoteSourceName = 3;
+   */
+  quoteSourceName: string;
+
+  /**
+   * @generated from field: string quoteMediaType = 4;
+   */
+  quoteMediaType: string;
+
+  constructor(data?: PartialMessage<PostQuoteRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.PostQuoteRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostQuoteRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PostQuoteRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PostQuoteRequest;
+
+  static equals(a: PostQuoteRequest | PlainMessage<PostQuoteRequest> | undefined, b: PostQuoteRequest | PlainMessage<PostQuoteRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message kotobako.v1.PostQuoteResponse
+ */
+export declare class PostQuoteResponse extends Message<PostQuoteResponse> {
+  /**
+   * @generated from field: string quoteId = 1;
+   */
+  quoteId: string;
+
+  constructor(data?: PartialMessage<PostQuoteResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.PostQuoteResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostQuoteResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PostQuoteResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PostQuoteResponse;
+
+  static equals(a: PostQuoteResponse | PlainMessage<PostQuoteResponse> | undefined, b: PostQuoteResponse | PlainMessage<PostQuoteResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message kotobako.v1.Quote
  */
 export declare class Quote extends Message<Quote> {

@@ -68,6 +68,29 @@ export const GetQuoteResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message kotobako.v1.PostQuoteRequest
+ */
+export const PostQuoteRequest = proto3.makeMessageType(
+  "kotobako.v1.PostQuoteRequest",
+  () => [
+    { no: 1, name: "sentence", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "authorName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "quoteSourceName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "quoteMediaType", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message kotobako.v1.PostQuoteResponse
+ */
+export const PostQuoteResponse = proto3.makeMessageType(
+  "kotobako.v1.PostQuoteResponse",
+  () => [
+    { no: 1, name: "quoteId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
  * @generated from message kotobako.v1.Quote
  */
 export const Quote = proto3.makeMessageType(

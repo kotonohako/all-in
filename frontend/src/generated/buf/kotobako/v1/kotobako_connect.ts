@@ -5,7 +5,7 @@
 
 // buf:lint:ignore PACKAGE_DIRECTORY_MATCH
 
-import { GetQuoteRequest, GetQuoteResponse, HealthRequest, HealthResponse, ListQuotesRequest, ListQuotesResponse } from "./kotobako_pb.js";
+import { GetQuoteRequest, GetQuoteResponse, HealthRequest, HealthResponse, ListQuotesRequest, ListQuotesResponse, PostQuoteRequest, PostQuoteResponse } from "./kotobako_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -39,6 +39,15 @@ export const KotobakoService = {
       name: "GetQuote",
       I: GetQuoteRequest,
       O: GetQuoteResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc kotobako.v1.KotobakoService.PostQuote
+     */
+    postQuote: {
+      name: "PostQuote",
+      I: PostQuoteRequest,
+      O: PostQuoteResponse,
       kind: MethodKind.Unary,
     },
   }

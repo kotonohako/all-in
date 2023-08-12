@@ -42,6 +42,9 @@ const (
 	// KotobakoServiceGetQuoteProcedure is the fully-qualified name of the KotobakoService's GetQuote
 	// RPC.
 	KotobakoServiceGetQuoteProcedure = "/kotobako.v1.KotobakoService/GetQuote"
+	// KotobakoServicePostQuoteProcedure is the fully-qualified name of the KotobakoService's PostQuote
+	// RPC.
+	KotobakoServicePostQuoteProcedure = "/kotobako.v1.KotobakoService/PostQuote"
 )
 
 // KotobakoServiceClient is a client for the kotobako.v1.KotobakoService service.
@@ -49,6 +52,7 @@ type KotobakoServiceClient interface {
 	Health(context.Context, *connect_go.Request[v1.HealthRequest]) (*connect_go.Response[v1.HealthResponse], error)
 	ListQuotes(context.Context, *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error)
 	GetQuote(context.Context, *connect_go.Request[v1.GetQuoteRequest]) (*connect_go.Response[v1.GetQuoteResponse], error)
+	PostQuote(context.Context, *connect_go.Request[v1.PostQuoteRequest]) (*connect_go.Response[v1.PostQuoteResponse], error)
 }
 
 // NewKotobakoServiceClient constructs a client for the kotobako.v1.KotobakoService service. By
@@ -76,6 +80,11 @@ func NewKotobakoServiceClient(httpClient connect_go.HTTPClient, baseURL string, 
 			baseURL+KotobakoServiceGetQuoteProcedure,
 			opts...,
 		),
+		postQuote: connect_go.NewClient[v1.PostQuoteRequest, v1.PostQuoteResponse](
+			httpClient,
+			baseURL+KotobakoServicePostQuoteProcedure,
+			opts...,
+		),
 	}
 }
 
@@ -84,6 +93,7 @@ type kotobakoServiceClient struct {
 	health     *connect_go.Client[v1.HealthRequest, v1.HealthResponse]
 	listQuotes *connect_go.Client[v1.ListQuotesRequest, v1.ListQuotesResponse]
 	getQuote   *connect_go.Client[v1.GetQuoteRequest, v1.GetQuoteResponse]
+	postQuote  *connect_go.Client[v1.PostQuoteRequest, v1.PostQuoteResponse]
 }
 
 // Health calls kotobako.v1.KotobakoService.Health.
@@ -101,11 +111,17 @@ func (c *kotobakoServiceClient) GetQuote(ctx context.Context, req *connect_go.Re
 	return c.getQuote.CallUnary(ctx, req)
 }
 
+// PostQuote calls kotobako.v1.KotobakoService.PostQuote.
+func (c *kotobakoServiceClient) PostQuote(ctx context.Context, req *connect_go.Request[v1.PostQuoteRequest]) (*connect_go.Response[v1.PostQuoteResponse], error) {
+	return c.postQuote.CallUnary(ctx, req)
+}
+
 // KotobakoServiceHandler is an implementation of the kotobako.v1.KotobakoService service.
 type KotobakoServiceHandler interface {
 	Health(context.Context, *connect_go.Request[v1.HealthRequest]) (*connect_go.Response[v1.HealthResponse], error)
 	ListQuotes(context.Context, *connect_go.Request[v1.ListQuotesRequest]) (*connect_go.Response[v1.ListQuotesResponse], error)
 	GetQuote(context.Context, *connect_go.Request[v1.GetQuoteRequest]) (*connect_go.Response[v1.GetQuoteResponse], error)
+	PostQuote(context.Context, *connect_go.Request[v1.PostQuoteRequest]) (*connect_go.Response[v1.PostQuoteResponse], error)
 }
 
 // NewKotobakoServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -129,6 +145,11 @@ func NewKotobakoServiceHandler(svc KotobakoServiceHandler, opts ...connect_go.Ha
 		svc.GetQuote,
 		opts...,
 	)
+	kotobakoServicePostQuoteHandler := connect_go.NewUnaryHandler(
+		KotobakoServicePostQuoteProcedure,
+		svc.PostQuote,
+		opts...,
+	)
 	return "/kotobako.v1.KotobakoService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case KotobakoServiceHealthProcedure:
@@ -137,6 +158,8 @@ func NewKotobakoServiceHandler(svc KotobakoServiceHandler, opts ...connect_go.Ha
 			kotobakoServiceListQuotesHandler.ServeHTTP(w, r)
 		case KotobakoServiceGetQuoteProcedure:
 			kotobakoServiceGetQuoteHandler.ServeHTTP(w, r)
+		case KotobakoServicePostQuoteProcedure:
+			kotobakoServicePostQuoteHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -156,4 +179,8 @@ func (UnimplementedKotobakoServiceHandler) ListQuotes(context.Context, *connect_
 
 func (UnimplementedKotobakoServiceHandler) GetQuote(context.Context, *connect_go.Request[v1.GetQuoteRequest]) (*connect_go.Response[v1.GetQuoteResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("kotobako.v1.KotobakoService.GetQuote is not implemented"))
+}
+
+func (UnimplementedKotobakoServiceHandler) PostQuote(context.Context, *connect_go.Request[v1.PostQuoteRequest]) (*connect_go.Response[v1.PostQuoteResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("kotobako.v1.KotobakoService.PostQuote is not implemented"))
 }

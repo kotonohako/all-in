@@ -203,6 +203,14 @@
                 </li>
               
                 <li>
+                  <a href="#kotobako.v1.PostQuoteRequest"><span class="badge">M</span>PostQuoteRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#kotobako.v1.PostQuoteResponse"><span class="badge">M</span>PostQuoteResponse</a>
+                </li>
+              
+                <li>
                   <a href="#kotobako.v1.Quote"><span class="badge">M</span>Quote</a>
                 </li>
               
@@ -366,6 +374,75 @@
 
         
       
+        <h3 id="kotobako.v1.PostQuoteRequest">PostQuoteRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>sentence</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>authorName</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>quoteSourceName</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>quoteMediaType</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="kotobako.v1.PostQuoteResponse">PostQuoteResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>quoteId</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="kotobako.v1.Quote">Quote</h3>
         <p></p>
 
@@ -450,6 +527,13 @@
                 <td>GetQuote</td>
                 <td><a href="#kotobako.v1.GetQuoteRequest">GetQuoteRequest</a></td>
                 <td><a href="#kotobako.v1.GetQuoteResponse">GetQuoteResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>PostQuote</td>
+                <td><a href="#kotobako.v1.PostQuoteRequest">PostQuoteRequest</a></td>
+                <td><a href="#kotobako.v1.PostQuoteResponse">PostQuoteResponse</a></td>
                 <td><p></p></td>
               </tr>
             
