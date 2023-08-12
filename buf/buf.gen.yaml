@@ -16,6 +16,8 @@ plugins:
       - paths=source_relative
   - plugin: es
     out: ../frontend/src/generated/buf
+  - plugin: connect-es
+    out: ../frontend/src/generated/buf
     opt:
       - target=ts
 
