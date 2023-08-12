@@ -1,21 +1,37 @@
 package main
 
 import (
+	"context"
+	"log"
 	"net/http"
+	"os"
 
-	"github.com/kotonohako/all-in/backend/presentation/generated"
-	"github.com/kotonohako/all-in/backend/registry"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	connect_go "github.com/bufbuild/connect-go"
+	kotobakov1 "github.com/kotonohako/all-in/backend/generated/buf/kotobako/v1"
+	"github.com/kotonohako/all-in/backend/generated/buf/kotobako/v1/kotobakov1connect"
 )
 
+type KotobakoServer struct{}
+
+func (s *KotobakoServer) Health(context.Context, *connect_go.Request[kotobakov1.HealthRequest]) (*connect_go.Response[kotobakov1.HealthResponse], error) {
+	return connect_go.NewResponse(&kotobakov1.HealthResponse{
+		Status: "Hello, Mr Kotobako",
+	}), nil
+}
+
 func main() {
-	e := echo.New()
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPost, http.MethodDelete},
-	}))
-	r := registry.ApiRegistry{}
-	generated.RegisterHandlers(e, r)
-	e.Logger.Fatal(e.Start(":8080"))
+	api := http.NewServeMux()
+	{
+		kotobakoServer := &KotobakoServer{}
+		path, service := kotobakov1connect.NewKotobakoServiceHandler(kotobakoServer)
+		api.Handle(path, service)
+	}
+	mux := http.NewServeMux()
+	mux.Handle("/api/", http.StripPrefix("/api", api))
+	addr := os.Getenv("BIND_ADDR")
+	if addr == "" {
+		addr = ":8080"
+	}
+	log.Printf("Listening on %s \n", addr)
+	http.ListenAndServe(addr, mux)
 }
