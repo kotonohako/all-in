@@ -42,3 +42,25 @@ func (s *KotobakoRegistry) ListQuotes(context.Context, *connect_go.Request[kotob
 	}
 	return connect_go.NewResponse(&response), nil
 }
+
+func (s *KotobakoRegistry) GetQuote(context context.Context, request *connect_go.Request[kotobakov1.GetQuoteRequest]) (*connect_go.Response[kotobakov1.GetQuoteResponse], error) {
+	quoteId, err := strconv.Atoi(request.Msg.QuoteId)
+	if err != nil {
+		return nil, fmt.Errorf("failed to convert requested quoteID %v", err)
+	}
+
+	quote, err := repository.GetQuote(quoteId)
+	if err != nil {
+		return nil, fmt.Errorf("quote detail get error: %v", err)
+	}
+
+	q := kotobakov1.GetQuoteResponse{
+		QuoteId:         strconv.Itoa(quote.ID),
+		AuthorName:      *quote.SpeakerName,
+		QuoteMediaType:  string(quote.QuoteMediaType),
+		QuoteSourceName: quote.QuoteSourceName,
+		Sentence:        quote.Sentence,
+	}
+
+	return connect_go.NewResponse(&q), nil
+}
