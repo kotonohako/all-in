@@ -22,7 +22,7 @@ tasks:
     cmds:
       - yarn
   gen:
-    deps: [gen:buf]
+    deps: [gen:buf, gen:apidoc]
   gen:buf:
     dir: buf
     cmds:
@@ -30,5 +30,11 @@ tasks:
   gen:apidoc:
     cmds:
       - protoc --doc_out=./doc --doc_opt=html,index.html buf/kotobako/**/*.proto
+  clean:
+    deps: [clean:backend, clean:frontend]
+  clean:backend:
+    rm -rf backend/generated
+  clean:frontend:
+    rm -rf frontend/src/generated
 
   
