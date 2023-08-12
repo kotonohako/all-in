@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+// buf:lint:ignore PACKAGE_DIRECTORY_MATCH
+package kotobako.v1;
+
+service KotobakoService {
+    rpc Health(HealthRequest) returns (HealthResponse) {}
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+    string status = 1;
+}

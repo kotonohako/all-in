@@ -1,0 +1,21 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/kotonohako/all-in/backend/generated/buf
+    except:
+      - buf.build/googleapis/googleapis
+plugins:
+  - plugin: go
+    out: ../backend/generated/buf
+    opt:
+      - paths=source_relative
+  - plugin: connect-go
+    out: ../backend/generated/buf
+    opt:
+      - paths=source_relative
+  - plugin: es
+    out: ../frontend/src/generated/buf
+    opt:
+      - target=ts
+
