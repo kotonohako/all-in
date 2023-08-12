@@ -9,6 +9,7 @@ import (
 	connect_go "github.com/bufbuild/connect-go"
 	kotobakov1 "github.com/kotonohako/all-in/backend/generated/buf/kotobako/v1"
 	"github.com/kotonohako/all-in/backend/generated/buf/kotobako/v1/kotobakov1connect"
+	"github.com/rs/cors"
 )
 
 type KotobakoServer struct{}
@@ -26,6 +27,7 @@ func main() {
 		path, service := kotobakov1connect.NewKotobakoServiceHandler(kotobakoServer)
 		api.Handle(path, service)
 	}
+
 	mux := http.NewServeMux()
 	mux.Handle("/api/", http.StripPrefix("/api", api))
 	addr := os.Getenv("BIND_ADDR")
@@ -33,5 +35,7 @@ func main() {
 		addr = ":8080"
 	}
 	log.Printf("Listening on %s \n", addr)
-	http.ListenAndServe(addr, mux)
+	http.ListenAndServe(addr,
+		cors.AllowAll().Handler(mux),
+	)
 }
