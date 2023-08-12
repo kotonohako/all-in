@@ -7,6 +7,7 @@ service KotobakoService {
     rpc Health(HealthRequest) returns (HealthResponse) {}
     rpc ListQuotes(ListQuotesRequest) returns (ListQuotesResponse) {}
     rpc GetQuote(GetQuoteRequest) returns (GetQuoteResponse) {}
+    rpc PostQuote(PostQuoteRequest) returns (PostQuoteResponse) {}
 }
 
 message HealthRequest {}
@@ -31,6 +32,17 @@ message GetQuoteResponse {
     string quoteMediaType = 3;
     string quoteSourceName = 4;
     string sentence = 5;
+}
+
+message PostQuoteRequest {
+    string sentence = 1;
+    string authorName = 2;
+    string quoteSourceName = 3;
+    string quoteMediaType = 4;
+}
+
+message PostQuoteResponse {
+    string quoteId = 1;
 }
 
 message Quote {
