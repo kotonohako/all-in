@@ -1,10 +1,11 @@
 "use client";
 import styles from './page.module.css'
-import { getJSON } from '../services/api'
+import { getJSON, hello } from '../services/api'
 import useSWR from "swr"
+import { KotobakoService } from '@/generated/buf/kotobako/v1/kotobako_connect';
 
 export default function About() {
-    const { data, error } = useSWR("http://localhost:8080/v1/kotonohas", getJSON)
+    const { data, error } = useSWR([KotobakoService.methods.health.name], hello)
     return (
         <main className={styles.main}>
             <div>{JSON.stringify(data)}</div>

@@ -16,6 +16,39 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@bufbuild/connect-next@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/connect-next/-/connect-next-0.12.0.tgz#9f6118713513c85d5b3e3404086bd33ee21eaee9"
+  integrity sha512-gtO0FBKNtFXbI8nt7AYxxtfTCcWZwkW5OIiSxiWcLQmMs6AwlzZsLycaTsejuVR+suqdgeU41mYtEo7pWs1P5Q==
+  dependencies:
+    "@bufbuild/connect" "0.12.0"
+    "@bufbuild/connect-node" "^0.12.0"
+
+"@bufbuild/connect-node@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/connect-node/-/connect-node-0.12.0.tgz#72df6d4cf3dfdf2c917c7ef340d2fc0bfa14f9fb"
+  integrity sha512-pg5QM4aal28YQ+CrVe85+VM8Yia3Ds/3QKffQRVHZNYiTXrfNpEY0YqbYY6ZSTSf0+HCIzSnyB3XyouRDfidfA==
+  dependencies:
+    "@bufbuild/connect" "0.12.0"
+    headers-polyfill "^3.1.2"
+
+"@bufbuild/connect-web@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/connect-web/-/connect-web-0.12.0.tgz#3d83a6128511d7b60a0c1e1883e7274ae6dd996e"
+  integrity sha512-bw5E6aIs0q3ab5oyIB263ShRg8DhUMsewMHsl/9lUxJFkmzxvHoPIlNFrSWOUUcyudJrahfhDveXF94bi9C5cA==
+  dependencies:
+    "@bufbuild/connect" "0.12.0"
+
+"@bufbuild/connect@0.12.0", "@bufbuild/connect@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/connect/-/connect-0.12.0.tgz#b339dc913135e0d29f143cae76581f7b090be34f"
+  integrity sha512-rYn3Akp7teOkvqxguLbf6QKizH37Yeo33lseV+JHDZC19CsAV9wrrZM17Sa+LNEBj/hrYtQF7EIcllgGxhv9aw==
+
+"@bufbuild/protobuf@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.3.0.tgz#69f675c76e6c1ab0b5bde141fa2df8b00927216a"
+  integrity sha512-G372ods0pLt46yxVRsnP/e2btVPuuzArcMPFpIDeIwiGPuuglEs9y75iG0HMvZgncsj5TvbYRWqbVyOe3PLCWQ==
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
@@ -1481,6 +1514,11 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+headers-polyfill@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/headers-polyfill/-/headers-polyfill-3.1.2.tgz#9a4dcb545c5b95d9569592ef7ec0708aab763fbe"
+  integrity sha512-tWCK4biJ6hcLqTviLXVR9DTRfYGQMXEIUj3gwJ2rZ5wO/at3XtkI4g8mCvFdUF9l1KMBNCfmNAdnahm1cgavQA==
 
 human-signals@^2.1.0:
   version "2.1.0"
