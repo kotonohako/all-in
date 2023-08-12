@@ -1,0 +1,29 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  init:
+    deps: [init:go, init:buf]
+  init:go:
+    cmds:
+      - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+      - go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+  init:buf:
+    dir: buf
+    cmds:
+      - yarn
+  gen:
+    deps: [gen:buf]
+  gen:buf:
+    dir: buf
+    cmds:
+      - npx buf generate
+  
