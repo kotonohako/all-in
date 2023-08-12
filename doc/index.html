@@ -179,6 +179,14 @@
             <ul>
               
                 <li>
+                  <a href="#kotobako.v1.GetQuoteRequest"><span class="badge">M</span>GetQuoteRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#kotobako.v1.GetQuoteResponse"><span class="badge">M</span>GetQuoteResponse</a>
+                </li>
+              
+                <li>
                   <a href="#kotobako.v1.HealthRequest"><span class="badge">M</span>HealthRequest</a>
                 </li>
               
@@ -219,6 +227,82 @@
       </div>
       <p></p>
 
+      
+        <h3 id="kotobako.v1.GetQuoteRequest">GetQuoteRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>quoteId</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="kotobako.v1.GetQuoteResponse">GetQuoteResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>quoteId</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>authorName</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>quoteMediaType</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>quoteSourceName</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sentence</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
       
         <h3 id="kotobako.v1.HealthRequest">HealthRequest</h3>
         <p></p>
@@ -359,6 +443,13 @@
                 <td>ListQuotes</td>
                 <td><a href="#kotobako.v1.ListQuotesRequest">ListQuotesRequest</a></td>
                 <td><a href="#kotobako.v1.ListQuotesResponse">ListQuotesResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetQuote</td>
+                <td><a href="#kotobako.v1.GetQuoteRequest">GetQuoteRequest</a></td>
+                <td><a href="#kotobako.v1.GetQuoteResponse">GetQuoteResponse</a></td>
                 <td><p></p></td>
               </tr>
             

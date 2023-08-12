@@ -95,6 +95,74 @@ export declare class ListQuotesResponse extends Message<ListQuotesResponse> {
 }
 
 /**
+ * @generated from message kotobako.v1.GetQuoteRequest
+ */
+export declare class GetQuoteRequest extends Message<GetQuoteRequest> {
+  /**
+   * @generated from field: string quoteId = 1;
+   */
+  quoteId: string;
+
+  constructor(data?: PartialMessage<GetQuoteRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.GetQuoteRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetQuoteRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetQuoteRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetQuoteRequest;
+
+  static equals(a: GetQuoteRequest | PlainMessage<GetQuoteRequest> | undefined, b: GetQuoteRequest | PlainMessage<GetQuoteRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message kotobako.v1.GetQuoteResponse
+ */
+export declare class GetQuoteResponse extends Message<GetQuoteResponse> {
+  /**
+   * @generated from field: string quoteId = 1;
+   */
+  quoteId: string;
+
+  /**
+   * @generated from field: string authorName = 2;
+   */
+  authorName: string;
+
+  /**
+   * @generated from field: string quoteMediaType = 3;
+   */
+  quoteMediaType: string;
+
+  /**
+   * @generated from field: string quoteSourceName = 4;
+   */
+  quoteSourceName: string;
+
+  /**
+   * @generated from field: string sentence = 5;
+   */
+  sentence: string;
+
+  constructor(data?: PartialMessage<GetQuoteResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "kotobako.v1.GetQuoteResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetQuoteResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetQuoteResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetQuoteResponse;
+
+  static equals(a: GetQuoteResponse | PlainMessage<GetQuoteResponse> | undefined, b: GetQuoteResponse | PlainMessage<GetQuoteResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message kotobako.v1.Quote
  */
 export declare class Quote extends Message<Quote> {
