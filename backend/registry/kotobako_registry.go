@@ -64,3 +64,20 @@ func (s *KotobakoRegistry) GetQuote(context context.Context, request *connect_go
 
 	return connect_go.NewResponse(&q), nil
 }
+
+func (s *KotobakoRegistry) PostQuote(context context.Context, request *connect_go.Request[kotobakov1.PostQuoteRequest]) (*connect_go.Response[kotobakov1.PostQuoteResponse], error) {
+	msg := request.Msg
+	sentence := msg.Sentence
+	authorName := msg.AuthorName
+	quoteSourceName := msg.QuoteSourceName
+	quoteMediaType := msg.QuoteMediaType
+
+	if err := repository.CreateQuote(sentence, authorName, quoteSourceName, quoteMediaType); err != nil {
+		return nil, fmt.Errorf("failed to register quote, %v", err)
+	}
+	quoteId := "100"
+	response := kotobakov1.PostQuoteResponse{
+		QuoteId: quoteId,
+	}
+	return connect_go.NewResponse(&response), nil
+}
