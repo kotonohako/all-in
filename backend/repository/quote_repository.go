@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 
 	"github.com/kotonohako/all-in/backend/domain/model"
@@ -10,30 +11,48 @@ import (
 
 func CreateQuote(
 	sentence string,
-	author string,
-	quote_source_name string,
-	quote_media_type string,
-) error {
-	db, err := DbConnectionWithSqlx()
+	SpeakerName string,
+	quoteSourceName string,
+	quoteMediaType string,
+) (uint, error) {
+	ctx := context.Background()
+
+	db, err := DbConnection()
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	query := `
-		INSERT INTO quote (
-			sentence, 
-			speaker_name, 
-			quote_source_name, 
-			quote_media_type
-		)
-			VALUES (?, ?, ?, ?)`
-	_, err = db.Exec(query, sentence, author, quote_source_name, quote_media_type)
-
+	tx, err := db.Begin()
 	if err != nil {
-		return err
+		return 0, err
+
+	}
+	defer tx.Rollback()
+
+	queries := sqlc.New(db)
+	qtx := queries.WithTx(tx)
+
+	if err = qtx.CreateQuote(ctx,
+		sqlc.CreateQuoteParams{
+			Sentence:        sentence,
+			SpeakerName:     sql.NullString{String: SpeakerName, Valid: true},
+			QuoteSourceName: quoteSourceName,
+			QuoteMediaType:  quoteMediaType,
+		},
+	); err != nil {
+		return 0, err
 	}
 
-	return nil
+	queryId, err := qtx.GetLastInsertId(ctx)
+	if err != nil {
+		return 0, err
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return 0, err
+	}
+	return uint(queryId), nil
 }
 
 func GetQuotes() ([]model.Quote, error) {

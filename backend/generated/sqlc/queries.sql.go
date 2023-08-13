@@ -7,7 +7,45 @@ package sqlc
 
 import (
 	"context"
+	"database/sql"
 )
+
+const createQuote = `-- name: CreateQuote :exec
+INSERT INTO quote (
+    sentence, 
+    speaker_name, 
+    quote_source_name, 
+    quote_media_type
+)VALUES (?, ?, ?, ?)
+`
+
+type CreateQuoteParams struct {
+	Sentence        string
+	SpeakerName     sql.NullString
+	QuoteSourceName string
+	QuoteMediaType  string
+}
+
+func (q *Queries) CreateQuote(ctx context.Context, arg CreateQuoteParams) error {
+	_, err := q.db.ExecContext(ctx, createQuote,
+		arg.Sentence,
+		arg.SpeakerName,
+		arg.QuoteSourceName,
+		arg.QuoteMediaType,
+	)
+	return err
+}
+
+const getLastInsertId = `-- name: GetLastInsertId :one
+SELECT LAST_INSERT_ID()
+`
+
+func (q *Queries) GetLastInsertId(ctx context.Context) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getLastInsertId)
+	var last_insert_id int64
+	err := row.Scan(&last_insert_id)
+	return last_insert_id, err
+}
 
 const getQuote = `-- name: GetQuote :one
 SELECT id, sentence, speaker_name, quote_source_name, quote_media_type, updated_at FROM quote WHERE id = ?
