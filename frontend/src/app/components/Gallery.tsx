@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import {Card, CardBody, Masonry, ResponsiveMasonry} from '../common'
-import { Quote } from '../types';
 import { getAllQuotes } from '../services/api';
 import { ListQuotesResponse } from '@/generated/buf/kotobako/v1/kotobako_pb';
 

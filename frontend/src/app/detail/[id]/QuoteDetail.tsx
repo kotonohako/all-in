@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, Heading, Text } from "@/app/common";
-import { Quote } from "@/app/types";
+import { Quote } from "@/generated/buf/kotobako/v1/kotobako_pb";
 
 export default function QuoteDetail({quote}:{quote:Quote}) {
     return (
@@ -9,7 +9,7 @@ export default function QuoteDetail({quote}:{quote:Quote}) {
             </CardHeader>
             <CardBody>
                 <Text as="p" fontSize="md">
-                    {quote.quote_source_name}
+                    {quote.quoteSourceName}
                 </Text>
             </CardBody>
         </Card>

@@ -19,3 +19,9 @@ export const getAllQuotes = async (): Promise<any> => {
   const response = client.listQuotes({});
   return response;
 }
+
+export const getQuote = async (id:string): Promise<any> => {
+  const client = getApiClient();
+  const response = client.getQuote({quoteId : String(id)});
+  return response;
+}
