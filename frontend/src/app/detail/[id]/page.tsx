@@ -1,7 +1,7 @@
 "use client";
-import Gallery from '../../components/Gallery';
-import QuoteDetail from './QuoteDetail';
-import {Heading, Spacer, VStack} from '../../common'
+import Gallery from '@/app/components/Gallery';
+import QuoteDetail from '@/app/detail/[id]/QuoteDetail';
+import {Heading, Spacer, VStack} from '@/app/common'
 import { GetQuoteResponse, Quote } from '@/generated/buf/kotobako/v1/kotobako_pb';
 import { getQuote } from '@/app/services/api';
 

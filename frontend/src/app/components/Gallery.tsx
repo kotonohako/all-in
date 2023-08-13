@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
-import {Card, CardBody, Masonry, ResponsiveMasonry} from '../common'
-import { getAllQuotes } from '../services/api';
+import {Card, CardBody, Masonry, ResponsiveMasonry} from '@/app/common'
+import { getAllQuotes } from '@/app/services/api';
 import { ListQuotesResponse, Quote } from '@/generated/buf/kotobako/v1/kotobako_pb';
 import { useEffect, useState } from 'react';
 

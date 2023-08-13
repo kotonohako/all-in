@@ -1,4 +1,4 @@
-import { Container, Box, Text } from "./common";
+import { Container, Box, Text } from "@/app/common";
 
 export default function Footer() {
     return (

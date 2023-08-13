@@ -1,4 +1,4 @@
-import { Container } from "./common";
+import { Container } from "@/app/common";
 
 export default function Main({ children }: { children: React.ReactNode }) {
     return (

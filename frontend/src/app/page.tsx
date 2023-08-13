@@ -1,6 +1,5 @@
 "use client"
-import useSWR from "swr"
-import Gallery from './components/Gallery';
+import Gallery from '@/app/components/Gallery';
 
 export default function Main() {
     return (

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Button } from "./common";
+import { Box, Flex, Heading, Button } from "@/app/common";
 import NextLink from "next/link";
 
 export default function Header() {
