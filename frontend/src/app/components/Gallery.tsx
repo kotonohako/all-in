@@ -13,7 +13,7 @@ const Gallery = () => {
         const fetchData = async () => {
             const response = getAllQuotes();
             const quotesResponse: ListQuotesResponse = await response;
-            const quotes = quotesResponse.quotes;
+            const quotes = quotesResponse.quotes.sort((a,b)=>Number(b.quoteId) - Number(a.quoteId));
             setQuotes(quotes);
         }
 
