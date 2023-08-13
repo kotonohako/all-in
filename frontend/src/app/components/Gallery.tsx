@@ -5,7 +5,7 @@ import { ListQuotesResponse } from '@/generated/buf/kotobako/v1/kotobako_pb';
 
 const Gallery = async () => {
     const quotesResponse: ListQuotesResponse = await getAllQuotes();
-    const quotes = quotesResponse.quotes;
+    const quotes = quotesResponse.quotes.sort((a,b)=>Number(b.quoteId) - Number(a.quoteId));
 
     const childElements = quotes.map((quote) => (
         <Card key={quote.quoteId}>
