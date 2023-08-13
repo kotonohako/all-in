@@ -1,3 +1,4 @@
+import { PostQuoteRequest } from '@/generated/buf/kotobako/v1/kotobako_pb';
 import { getApiClient } from '@/stores/kotobako';
 import axios from 'axios';
 
@@ -25,3 +26,9 @@ export const getQuote = async (id:string): Promise<any> => {
   const response = client.getQuote({quoteId : String(id)});
   return response;
 }
+
+export const postQuote = async (request: PostQuoteRequest): Promise<any> => {
+  const client = getApiClient();
+  const response = client.postQuote(request);
+  return response;
+} 

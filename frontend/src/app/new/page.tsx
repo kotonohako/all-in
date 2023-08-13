@@ -13,6 +13,8 @@ import {
     RadioGroup,
     Stack
 } from "../common";
+import { postQuote } from "../services/api";
+import { PostQuoteRequest } from "@/generated/buf/kotobako/v1/kotobako_pb";
 
 export default function CreateArticle() {
     const router = useRouter();
@@ -23,15 +25,10 @@ export default function CreateArticle() {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
         setLoading(true);
-        // await fetch("/v1/quotes", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ title, content }),
-        // });
+        await postQuote(new PostQuoteRequest({ sentence: quote, quoteSourceName: quote_source, quoteMediaType: quote_source_name, authorName: "hoge" }));
         setLoading(false);
         router.push("/");
         startTransition(() => {
@@ -51,7 +48,7 @@ export default function CreateArticle() {
 
                     <RadioGroup onChange={setQuoteSourceName} value={quote_source_name} defaultValue="book"> 
                         <Stack direction='row'>
-                            <Radio value="book">本</Radio>
+                            <Radio value="book">小説・漫画</Radio>
                             <Radio value="movie">映画</Radio>
                             <Radio value="game">ゲーム</Radio>
                             <Radio value="music">歌詞</Radio>
