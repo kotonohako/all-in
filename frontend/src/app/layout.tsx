@@ -1,5 +1,8 @@
-import './globals.css'
 import { Inter } from 'next/font/google'
+import Provider from '@/app/Provider'
+import Header from '@/app/Header'
+import Main from '@/app/Main'
+import Footer from '@/app/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,9 +17,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        {children}
+    <html lang="ja">
+      <head />
+      <body>
+        <Provider>
+          <Header />
+          <Main>{children}</Main>
+          <Footer />
+        </Provider>
       </body>
     </html>
   )
